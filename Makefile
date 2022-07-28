@@ -6,7 +6,7 @@
 #    By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/25 17:12:22 by ekeen-wy          #+#    #+#              #
-#    Updated: 2022/07/12 23:48:44 by ekeen-wy         ###   ########.fr        #
+#    Updated: 2022/07/19 18:35:55 by ekeen-wy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CFLAGS := -Wall -Wextra -Werror -g -fsanitize=address
 
 DEPS := fdf.h
 
-SRC := main.c parse_map.c utils.c
+SRC := main.c parse_map.c utils.c draw_line.c
 
 OBJ := $(SRC:.c=.o)
 
