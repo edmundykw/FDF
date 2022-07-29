@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 18:55:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/29 20:21:15 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/29 23:12:02 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ void	build_map(t_map *map)
 			map->vector[index] = (t_vector *)malloc(sizeof(t_vector));
 			(map->vector[index])->x = x_cor;
 			(map->vector[index])->y = y_cor;
-			(map->vector[index])->z = *num;
-			num++;
+			(map->vector[index])->z = *(num++);
 			index++;
 		}
-		if (temp->next != NULL)
-			temp = temp->next;
+		temp = temp->next;
 		x_cor++;
 	}
 }

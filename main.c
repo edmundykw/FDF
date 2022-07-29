@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:14:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/29 20:38:11 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/29 23:35:01 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,27 @@
 			i++;
 		}
 		temp = temp->next;
+		printf("\n");
+	}
+
+	
+	
+
+	t_vector	**temp;
+	size_t		i;
+	size_t		j;
+
+	temp = map.vector;
+	i = 0;
+	while (i < map.x_row * map.y_column)
+	{
+		j = 0;
+		while (j++ < map.y_column)
+		{
+			printf("%d ", (*temp)->z);
+			temp++;
+			i++;
+		}
 		printf("\n");
 	}
 */
