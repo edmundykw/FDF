@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:16:40 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/28 15:40:32 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/29 16:40:43 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ typedef struct s_data {
 
 /* utils.c */
 void	free_char(char **str);
+void	free_struct(t_map *map);
 void	p_error(char *str);
 int		check_file_status(char *file);
-char	*get_file(char **str);
 
 /* parse_map.c*/
 void	process_input(t_map *map, char *file);
+
+/* build_map.c*/
+void	build_map(t_map *map);
 
 /* draw_line.c */
 void	draw_line(int *x, int *y, t_data *img);

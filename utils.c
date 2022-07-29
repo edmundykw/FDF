@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:16:54 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/28 15:40:43 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/29 16:41:52 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,21 @@ void	free_char(char **str)
 		temp++;
 	}
 	free(str);
+}
+
+void	free_struct(t_map *map)
+{
+	t_vector	**temp;
+	size_t		size;
+
+	temp = map->vector;
+	size = 0;
+	while (size++ < map->x_row * map->y_column)
+	{
+		free(*temp);
+		temp++;
+	}
+	free(map->vector);
 }
 
 void	p_error(char *str)
@@ -42,17 +57,4 @@ int	check_file_status(char *file)
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
-}
-
-char	*get_file(char **str)
-{
-	char	*file;
-	char	**index;
-
-	index = str;
-	while (*index != NULL)
-		index++;
-	index--;
-	file = *index;
-	return (file);
 }
