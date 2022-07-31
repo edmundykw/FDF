@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:16:54 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/29 16:41:52 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/31 21:49:09 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,16 @@ int	check_file_status(char *file)
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
+}
+
+void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x <= 720 && y <= 1080)
+	{
+		dst = img->addr + (y * img->line_length
+				+ x *(img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }

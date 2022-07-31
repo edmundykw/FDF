@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:16:40 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/29 16:40:43 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/31 19:39:27 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "libft/libft.h"
+
+enum e_coordinates
+{
+	x1 = 0,
+	y1 = 1,
+	x2 = 2,
+	y2 = 3
+};
+
+enum e_dx_dy
+{
+	dy = 0,
+	dx = 1,
+	epsilon = 2
+};
 
 typedef struct i_data {
 	void	*img;
@@ -46,6 +61,7 @@ typedef struct s_data {
 	t_list		*temp_map;
 	t_vector	**vector;
 	t_matrix	*rotation;
+	int			unit_vector_size[2];
 }				t_map;
 
 /* utils.c */
@@ -53,6 +69,7 @@ void	free_char(char **str);
 void	free_struct(t_map *map);
 void	p_error(char *str);
 int		check_file_status(char *file);
+void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 
 /* parse_map.c*/
 void	process_input(t_map *map, char *file);
@@ -60,7 +77,6 @@ void	process_input(t_map *map, char *file);
 /* build_map.c*/
 void	build_map(t_map *map);
 
-/* draw_line.c */
-void	draw_line(int *x, int *y, t_data *img);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+/* bresenhams.c */
+void	bresenhams(t_map *map, t_data *img);
 #endif

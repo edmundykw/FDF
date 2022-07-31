@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 18:55:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/29 23:12:02 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/31 19:38:04 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ static void	allocate_map_memory(t_map *map, size_t vector_size)
 	map->vector = (t_vector **)malloc(sizeof(map->vector) * vector_size);
 	if (map->vector == NULL)
 		p_error("Memory allocation failed\n");
+}
+
+static t_vector	*allocate_vector_memory(void)
+{
+	t_vector	*vector;
+
+	vector = (t_vector *)malloc(sizeof(*vector));
+	if (vector == NULL)
+		p_error("Memory allocation failed\n");
+	return (vector);
 }
 
 void	build_map(t_map *map)
@@ -37,7 +47,7 @@ void	build_map(t_map *map)
 		y_cor = -1;
 		while (++y_cor < map->y_column)
 		{
-			map->vector[index] = (t_vector *)malloc(sizeof(t_vector));
+			map->vector[index] = allocate_vector_memory();
 			(map->vector[index])->x = x_cor;
 			(map->vector[index])->y = y_cor;
 			(map->vector[index])->z = *(num++);

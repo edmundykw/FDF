@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:14:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/29 23:35:01 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/07/31 21:54:34 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@
 		printf("\n");
 	}
 */
+
+static void	set_unit_vector(t_map *map)
+{
+	map->unit_vector_size[x1] = 540 / map->x_row;
+	map->unit_vector_size[y1] = 1080 / map->y_column;
+}
+
 static void	init_map(t_map *map)
 {
 	map->y_column = 0;
@@ -71,13 +78,14 @@ int	main(int argc, char **argv)
 		p_error("Error: Map not provided\n");
 	init_map(&map);
 	process_input(&map, argv[1]);
+	set_unit_vector(&map);
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 800, 300, "Hello world!");
-	img.img = mlx_new_image(mlx, 600, 200);
+	mlx_win = mlx_new_window(mlx, 1440, 720, "FDF");
+	img.img = mlx_new_image(mlx, 1440, 720);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
-	//draw_line(x, y, &img);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 20, 20);
+	bresenhams(&map, &img);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 	free_struct(&map);
 }
