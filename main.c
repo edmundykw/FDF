@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:14:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/31 21:54:34 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:55:43 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@
 		temp = temp->next;
 		printf("\n");
 	}
-
-	
-	
-
 	t_vector	**temp;
 	size_t		i;
 	size_t		j;
@@ -44,24 +40,19 @@
 		j = 0;
 		while (j++ < map.y_column)
 		{
-			printf("%d ", (*temp)->z);
+			printf("%f ", (*temp)->z);
 			temp++;
 			i++;
 		}
 		printf("\n");
 	}
+	
 */
-
-static void	set_unit_vector(t_map *map)
-{
-	map->unit_vector_size[x1] = 540 / map->x_row;
-	map->unit_vector_size[y1] = 1080 / map->y_column;
-}
 
 static void	init_map(t_map *map)
 {
-	map->y_column = 0;
-	map->x_row = 0;
+	map->y_column = 0.0;
+	map->x_row = 0.0;
 	map->temp_map = NULL;
 	map->vector = NULL;
 	map->rotation = NULL;
@@ -78,10 +69,9 @@ int	main(int argc, char **argv)
 		p_error("Error: Map not provided\n");
 	init_map(&map);
 	process_input(&map, argv[1]);
-	set_unit_vector(&map);
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1440, 720, "FDF");
-	img.img = mlx_new_image(mlx, 1440, 720);
+	mlx_win = mlx_new_window(mlx, 1440, 920, "FDF!");
+	img.img = mlx_new_image(mlx, 1440, 920);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
 	bresenhams(&map, &img);

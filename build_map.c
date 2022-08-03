@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 18:55:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/31 19:38:04 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:00:08 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static t_vector	*allocate_vector_memory(void)
 void	build_map(t_map *map)
 {
 	t_list		*temp;
-	int			*num;
+	double		*num;
 	size_t		index;
-	size_t		x_cor;
-	size_t		y_cor;
+	double		x_cor;
+	double		y_cor;
 
 	allocate_map_memory(map, map->x_row * map->y_column);
 	temp = map->temp_map;
-	x_cor = 0;
+	x_cor = 0.0;
 	index = 0;
 	while (index < map->x_row * map->y_column)
 	{

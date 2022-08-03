@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:16:40 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/31 19:39:27 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:16:50 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "libft/libft.h"
 
 enum e_coordinates
@@ -33,6 +34,14 @@ enum e_dx_dy
 	epsilon = 2
 };
 
+enum e_unit_vector
+{
+	x = 0,
+	y = 1,
+	z = 2,
+	w = 3
+};
+
 typedef struct i_data {
 	void	*img;
 	char	*addr;
@@ -43,16 +52,18 @@ typedef struct i_data {
 
 typedef struct s_matrix
 {
-	int	*i;
-	int	*j;
-	int	*k;
+	double	**i;
+	double	**j;
+	double	**k;
+	double	**w;
 }				t_matrix;
 
 typedef struct s_vector
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
+	double	w;
 }				t_vector;
 
 typedef struct s_data {
@@ -60,16 +71,22 @@ typedef struct s_data {
 	size_t		y_column;
 	t_list		*temp_map;
 	t_vector	**vector;
-	t_matrix	*rotation;
-	int			unit_vector_size[2];
+	t_matrix	*rotation_coord;
+	int			unit_vector_size;
 }				t_map;
 
-/* utils.c */
-void	free_char(char **str);
-void	free_struct(t_map *map);
+/* error_utils.c */
 void	p_error(char *str);
 int		check_file_status(char *file);
+
+/* map_utils.c */
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
+void	is_valid_dimension(t_map *map, size_t y_size);
+void	set_unit_vector(t_map *map);
+
+/* memory_utils.c */
+void	free_char(char **str);
+void	free_struct(t_map *map);
 
 /* parse_map.c*/
 void	process_input(t_map *map, char *file);

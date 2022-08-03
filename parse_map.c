@@ -6,19 +6,27 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:43 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/07/30 22:46:19 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:54:21 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	is_valid_dimension(t_map *map, size_t y_size)
+static void	transform_coord(t_map *map)
 {
-	if (map->y_column != y_size)
-		p_error("Error: Invalid map dimension\n");
+	size_t		index;
+	t_vector	**coord;
+
+	index = 0;
+	coord = map->vector;
+	while (++index < map->x_row * map->y_column)
+	{
+		(coord[index])->x = (coord[index])->x + map->unit_vector_size;
+		(coord[index])->y = (coord[index])->y + map->unit_vector_size;
+	}
 }
 
-static void	store_input(t_map *map, int *line_read, size_t y_size)
+static void	store_input(t_map *map, double *line_read, size_t y_size)
 {
 	t_list	*new;
 
@@ -32,7 +40,7 @@ static void	convert_line(t_map *map, char *line)
 {
 	size_t	y_size;
 	size_t	index;
-	int		*line_read;
+	double	*line_read;
 	char	**split;
 	char	*temp_line;
 
@@ -44,18 +52,18 @@ static void	convert_line(t_map *map, char *line)
 		y_size++;
 	if (map->y_column == 0)
 		map->y_column = y_size;
-	line_read = (int *)malloc(sizeof(int) * y_size);
+	line_read = (double *)malloc(sizeof(*line_read) * y_size);
 	if (line_read == NULL)
 		p_error("Memory allocation failed\n");
 	index = -1;
 	while (split[++index] != NULL)
-		line_read[index] = ft_atoi(split[index]);
+		line_read[index] = (double)ft_atoi(split[index]);
 	free_char(split);
 	free(temp_line);
 	store_input(map, line_read, y_size);
 }
 
-static void	read_file(t_map *map, int fd)
+void	read_file(t_map *map, int fd)
 {
 	char	*line;
 	size_t	x_size;
@@ -81,5 +89,7 @@ void	process_input(t_map *map, char *file)
 	fd = check_file_status(file);
 	read_file(map, fd);
 	build_map(map);
+	set_unit_vector(map);
+	transform_coord(map);
 	ft_lstclear(&map->temp_map, free);
 }
