@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 14:38:45 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/02 11:21:29 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/04 11:34:53 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	get_decision_param(int x_y[4], int *output)
 	int	y_change;
 	int	x_change;
 
-	y_change = x_y[y2] - x_y[y1];
-	x_change = x_y[x2] - x_y[x1];
+	y_change = x_y[y_2] - x_y[y_1];
+	x_change = x_y[x_2] - x_y[x_1];
 	output[dy] = y_change;
 	output[dx] = x_change;
 	output[epsilon] = y_change - x_change;
@@ -26,14 +26,14 @@ static void	get_decision_param(int x_y[4], int *output)
 
 static void	get_coord(int x_y[4], t_vector *p1, t_vector *p2)
 {
-	x_y[x1] = p1->x;
-	printf("%d ", x_y[x1]);
-	x_y[y1] = p1->y;
-	printf("%d\n", x_y[y1]);
-	x_y[x2] = p2->x;
-	printf("%d ", x_y[x2]);
-	x_y[y2] = p2->y;
-	printf("%d\n", x_y[y2]);
+	x_y[x_1] = p1->x;
+	printf("%d ", x_y[x_1]);
+	x_y[y_1] = p1->y;
+	printf("%d\n", x_y[y_1]);
+	x_y[x_2] = p2->x;
+	printf("%d ", x_y[x_2]);
+	x_y[y_2] = p2->y;
+	printf("%d\n", x_y[y_2]);
 }
 
 static void	draw_line(int output[3], int x_y[4], t_data *img)
@@ -42,10 +42,10 @@ static void	draw_line(int output[3], int x_y[4], t_data *img)
 	int	y_start;
 	int	decision_param;
 
-	x_start = x_y[x1];
-	y_start = x_y[y1];
+	x_start = x_y[x_1];
+	y_start = x_y[y_1];
 	decision_param = output[epsilon];
-	while (x_start < x_y[x2])
+	while (x_start < x_y[x_2])
 	{
 		my_mlx_pixel_put(img, x_start, y_start, 0x00FFFFFF);
 		if (decision_param >= 0)

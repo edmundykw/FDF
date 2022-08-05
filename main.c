@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:14:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/03 15:55:43 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/04 23:43:46 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@
 
 static void	init_map(t_map *map)
 {
-	map->y_column = 0.0;
-	map->x_row = 0.0;
+	map->y_column = 0;
+	map->x_row = 0;
 	map->temp_map = NULL;
 	map->vector = NULL;
-	map->rotation = NULL;
+	map->matrices = NULL;
+	map->vector_size = 4;
 }
 
 int	main(int argc, char **argv)
@@ -77,5 +78,6 @@ int	main(int argc, char **argv)
 	bresenhams(&map, &img);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
-	free_struct(&map);
+	free_vector(&map);
+	free_matrix(&map);
 }

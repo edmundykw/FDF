@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:16:40 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/03 19:16:50 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/05 00:14:19 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 enum e_coordinates
 {
-	x1 = 0,
-	y1 = 1,
-	x2 = 2,
-	y2 = 3
+	x_1 = 0,
+	y_1 = 1,
+	x_2 = 2,
+	y_2 = 3
 };
 
 enum e_dx_dy
@@ -50,14 +50,6 @@ typedef struct i_data {
 	int		endian;
 }				t_data;
 
-typedef struct s_matrix
-{
-	double	**i;
-	double	**j;
-	double	**k;
-	double	**w;
-}				t_matrix;
-
 typedef struct s_vector
 {
 	double	x;
@@ -66,12 +58,20 @@ typedef struct s_vector
 	double	w;
 }				t_vector;
 
+typedef struct s_matrix
+{
+	double	*matrix_z[4];
+	double	*matrix_x[4];
+	double	*matrix_xz[4];
+}				t_matrix;
+
 typedef struct s_data {
 	size_t		x_row;
 	size_t		y_column;
 	t_list		*temp_map;
 	t_vector	**vector;
-	t_matrix	*rotation_coord;
+	t_matrix	*matrices;
+	size_t		vector_size;
 	int			unit_vector_size;
 }				t_map;
 
@@ -86,7 +86,8 @@ void	set_unit_vector(t_map *map);
 
 /* memory_utils.c */
 void	free_char(char **str);
-void	free_struct(t_map *map);
+void	free_vector(t_map *map);
+void	free_matrix(t_map *map);
 
 /* parse_map.c*/
 void	process_input(t_map *map, char *file);
@@ -96,4 +97,11 @@ void	build_map(t_map *map);
 
 /* bresenhams.c */
 void	bresenhams(t_map *map, t_data *img);
+
+/* matrix_memory.c */
+void	init_matrices(t_map *map);
+
+/* matrix_transformation.c */
+double	degree_to_radian(double degree);
+void	rotate_z(double *matrix[4], double radian);
 #endif

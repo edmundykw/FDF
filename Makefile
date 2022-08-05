@@ -6,7 +6,7 @@
 #    By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/25 17:12:22 by ekeen-wy          #+#    #+#              #
-#    Updated: 2022/08/01 12:35:26 by ekeen-wy         ###   ########.fr        #
+#    Updated: 2022/08/04 11:43:23 by ekeen-wy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CFLAGS := -Wall -Wextra -Werror -g -fsanitize=address
 DEPS := fdf.h
 
 SRC := main.c parse_map.c error_utils.c memory_utils.c bresenhams.c build_map.c \
-	   map_utils.c
+	   map_utils.c matrix_memory.c matrix_transformation.c
 
 OBJ := $(SRC:.c=.o)
 
