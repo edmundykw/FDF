@@ -6,23 +6,24 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:43 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/03 13:54:21 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/06 15:38:22 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	transform_coord(t_map *map)
+static void	scale_coord(t_map *map)
 {
-	size_t		index;
-	t_vector	**coord;
+	size_t	index;
+	double	**coord;
 
 	index = 0;
 	coord = map->vector;
 	while (++index < map->x_row * map->y_column)
 	{
-		(coord[index])->x = (coord[index])->x + map->unit_vector_size;
-		(coord[index])->y = (coord[index])->y + map->unit_vector_size;
+		(coord[index][xi]) = (coord[index][xi]) + map->unit_vector_size;
+		(coord[index][yi]) = (coord[index][yi]) + map->unit_vector_size;
+		(coord[index][zi]) = (coord[index][zi]) + map->unit_vector_size;
 	}
 }
 
@@ -63,7 +64,7 @@ static void	convert_line(t_map *map, char *line)
 	store_input(map, line_read, y_size);
 }
 
-void	read_file(t_map *map, int fd)
+static void	read_file(t_map *map, int fd)
 {
 	char	*line;
 	size_t	x_size;
@@ -90,6 +91,6 @@ void	process_input(t_map *map, char *file)
 	read_file(map, fd);
 	build_map(map);
 	set_unit_vector(map);
-	transform_coord(map);
+	scale_coord(map);
 	ft_lstclear(&map->temp_map, free);
 }

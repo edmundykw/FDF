@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_memory.c                                    :+:      :+:    :+:   */
+/*   matrix_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:44:42 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/04 23:58:50 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:25:12 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	allocate_matrix_memory(double *matrix[4], size_t dimension)
 	index = -1;
 	while (++index < dimension)
 	{
-		temp = (double *)malloc(sizeof(*temp));
+		temp = allocate_vector_memory(dimension);
 		if (temp == NULL)
 			p_error("Memory allocation failed\n");
 		matrix[index] = temp;

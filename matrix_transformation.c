@@ -6,28 +6,21 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:09:27 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/05 11:48:37 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:38:48 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/* Find the center point of rotation for the image */
-
-double	degree_to_radian(double degree)
-{
-	return (degree * (M_PI / 180));
-}
 
 void	rotate_z(double *matrix[4], double degree)
 {
 	double	radian;
 
 	radian = degree_to_radian(degree);
-	matrix[x][x] = cos(radian);
-	matrix[x][y] = sin(radian);
-	matrix[y][x] = -sin(radian);
-	matrix[y][y] = cos(radian);
+	matrix[xi][xi] = cos(radian);
+	matrix[xi][yi] = sin(radian);
+	matrix[yi][xi] = -sin(radian);
+	matrix[yi][yi] = cos(radian);
 }
 
 void	rotate_x(double *matrix[4], double degree)
@@ -35,13 +28,67 @@ void	rotate_x(double *matrix[4], double degree)
 	double	radian;
 
 	radian = degree_to_radian(degree);
-	matrix[y][y] = cos(radian);
-	matrix[y][z] = sin(radian);
-	matrix[z][y] = -sin(radian);
-	matrix[z][z] = cos(radian);
+	matrix[yi][yi] = cos(radian);
+	matrix[yi][zi] = sin(radian);
+	matrix[zi][yi] = -sin(radian);
+	matrix[zi][zi] = cos(radian);
 }
 
-void	matrix_multiplication(double *matrix_1[4], double *matrix_2[4])
+void	matrix_multiply(double *vector, double *matrix[4],
+		double *transformed, size_t dimension)
 {
-	
+	size_t	col;
+	size_t	row;
+	size_t	v_row;
+	double	value;
+
+	row = 0;
+	while (row < dimension)
+	{
+		col = 0;
+		v_row = 0;
+		value = 0;
+		while (col < dimension)
+		{
+			value += vector[v_row] * matrix[col][row];
+			col++;
+			v_row++;
+		}
+		transformed[row] = value;
+		row++;
+	}
+}
+
+/* This is to translate the center of the image to the origin (0,0) and
+perform the needed rotation for isometric projection, and then translate
+the center of the image to its intial location.
+*/
+void	translate(double *vector, double *matrix[4], size_t dimension)
+{
+	double	*transformed;
+
+	transformed = allocate_vector_memory(dimension);
+	matrix_multiply(vector, matrix, transformed, dimension);
+	matrix[wi][xi] = vector[xi] - transformed[xi];
+	matrix[wi][yi] = vector[yi] - transformed[yi];
+	matrix[wi][zi] = vector[zi] - transformed[zi];
+	free(transformed);
+}
+
+void	isometric_projection_matrix(t_map *map)
+{
+	size_t	col;
+	double	*img_midpoint;
+
+	init_matrices(map);
+	rotate_z(map->matrices->matrix_z, 45);
+	rotate_x(map->matrices->matrix_x, 54.74);
+	col = -1;
+	while (++col < map->vector_size)
+	{
+		matrix_multiply(map->matrices->matrix_z[col], map->matrices->matrix_x,
+			map->matrices->matrix_xz[col], map->vector_size);
+	}
+	img_midpoint = find_img_midpoint(map);
+	translate(img_midpoint, map->matrices->matrix_xz, map->vector_size);
 }

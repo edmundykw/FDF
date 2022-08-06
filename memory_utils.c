@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:34:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/04 23:54:09 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:50:15 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	free_char(char **str)
 
 void	free_vector(t_map *map)
 {
-	t_vector	**temp;
-	size_t		size;
+	double	**temp;
+	size_t	size;
 
 	temp = map->vector;
 	size = 0;
@@ -54,4 +54,14 @@ void	free_matrix(t_map *map)
 	free_mem(map, map->matrices->matrix_x);
 	free_mem(map, map->matrices->matrix_z);
 	free_mem(map, map->matrices->matrix_xz);
+}
+
+double	*allocate_vector_memory(size_t dimension)
+{
+	double	*vector;
+
+	vector = (double *)malloc(sizeof(*vector) * dimension);
+	if (vector == NULL)
+		p_error("Memory allocation failed\n");
+	return (vector);
 }

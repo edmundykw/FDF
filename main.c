@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:14:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/04 23:43:46 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/05 22:30:25 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	main(int argc, char **argv)
 	img.img = mlx_new_image(mlx, 1440, 920);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 			&img.endian);
+	isometric_projection_matrix(&map);
 	bresenhams(&map, &img);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);

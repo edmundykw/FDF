@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:35:36 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/03 17:20:03 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:50:11 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ void	set_unit_vector(t_map *map)
 		map->unit_vector_size = 5;
 	else
 		map->unit_vector_size = 15;
+}
+
+double	*find_img_midpoint(t_map *map)
+{
+	size_t		row;
+	size_t		column;
+
+	row = map->x_row / 2;
+	column = map->y_column / 2;
+	return (map->vector[(row * map->x_row) + column]);
 }
