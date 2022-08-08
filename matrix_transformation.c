@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:09:27 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/06 19:38:48 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/07 14:13:35 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,27 @@ void	translate(double *vector, double *matrix[4], size_t dimension)
 	free(transformed);
 }
 
+void	printfmatrix(t_map *map)
+{
+	double	**temp;
+	size_t	count;
+	size_t	i;
+
+	count = -1;
+	temp = map->matrices->matrix_xz;
+	while (++count < map->vector_size)
+	{
+		i = 0;
+		printf("Col: %ld\n", count);
+		while (i < map->vector_size)
+		{
+			printf("Row: %ld\n", i);
+			printf("%f \n", temp[count][i]);
+			i++;
+		}
+	}
+}
+
 void	isometric_projection_matrix(t_map *map)
 {
 	size_t	col;
@@ -90,5 +111,7 @@ void	isometric_projection_matrix(t_map *map)
 			map->matrices->matrix_xz[col], map->vector_size);
 	}
 	img_midpoint = find_img_midpoint(map);
+	printf("Img midpoint x: %f, y: %f, z: %f\n", img_midpoint[xi], img_midpoint[yi], img_midpoint[zi]);
 	translate(img_midpoint, map->matrices->matrix_xz, map->vector_size);
+	printfmatrix(map);
 }

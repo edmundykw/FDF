@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:16:40 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/06 19:50:26 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:50:24 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_matrix
 }				t_matrix;
 
 typedef struct s_data {
-	size_t		x_row;
-	size_t		y_column;
+	size_t		x_column;
+	size_t		y_row;
 	t_list		*temp_map;
 	double		**vector;
 	t_matrix	*matrices;
@@ -70,6 +70,10 @@ typedef struct s_data {
 /* error_utils.c */
 void		p_error(char *str);
 int			check_file_status(char *file);
+
+/* general_utils.c */
+int			abs(double num1, double num2);
+void		swap(double x_y[4]);
 
 /* map_utils.c */
 void		my_mlx_pixel_put(t_data *img, int x, int y, int color);
@@ -91,6 +95,12 @@ void		build_map(t_map *map);
 
 /* bresenhams.c */
 void		bresenhams(t_map *map, t_data *img);
+
+/* drawing_utils.c */
+void		my_mlx_pixel_put(t_data *img, int x, int y, int color);
+void		plot_line_low(double x_y[4], double output[3], t_data *img);
+void		plot_line_high(double x_y[4], double output[3], t_data *img);
+void		draw_line(int output[3], double x_y[4], t_data *img);
 
 /* matrix_init.c */
 void		init_matrices(t_map *map);

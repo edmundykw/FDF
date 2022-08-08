@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:14:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/05 22:30:25 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:56:34 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
 
 static void	init_map(t_map *map)
 {
-	map->y_column = 0;
-	map->x_row = 0;
+	map->y_row = 0;
+	map->x_column = 0;
 	map->temp_map = NULL;
 	map->vector = NULL;
 	map->matrices = NULL;

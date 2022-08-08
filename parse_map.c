@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:43 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/06 15:38:22 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:56:18 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,46 @@ static void	scale_coord(t_map *map)
 
 	index = 0;
 	coord = map->vector;
-	while (++index < map->x_row * map->y_column)
+	while (++index < map->x_column * map->y_row)
 	{
 		(coord[index][xi]) = (coord[index][xi]) + map->unit_vector_size;
 		(coord[index][yi]) = (coord[index][yi]) + map->unit_vector_size;
-		(coord[index][zi]) = (coord[index][zi]) + map->unit_vector_size;
+		if (coord[index][zi] != 0)
+			(coord[index][zi]) = (coord[index][zi]) + map->unit_vector_size;
+		printf("Scaling: x: %f, y: %f, z: %f, w: %f\n", coord[index][xi],
+			coord[index][yi], coord[index][zi], coord[index][wi]);
 	}
+	printf("Scaling: x: %f, y: %f, z: %f, w: %f\n", coord[0][xi],
+		coord[0][yi], coord[0][zi], coord[0][wi]);
 }
 
-static void	store_input(t_map *map, double *line_read, size_t y_size)
+static void	store_input(t_map *map, double *line_read, size_t x_size)
 {
 	t_list	*new;
 
 	if (map->temp_map != NULL)
-		is_valid_dimension(map, y_size);
+		is_valid_dimension(map, x_size);
 	new = ft_lstnew(line_read);
 	ft_lstadd_back(&map->temp_map, new);
 }
 
 static void	convert_line(t_map *map, char *line)
 {
-	size_t	y_size;
+	size_t	x_size;
 	size_t	index;
 	double	*line_read;
 	char	**split;
 	char	*temp_line;
 
 	index = -1;
-	y_size = 0;
+	x_size = 0;
 	temp_line = ft_strtrim(line, " \n");
 	split = ft_split(temp_line, ' ');
 	while (split[++index] != NULL)
-		y_size++;
-	if (map->y_column == 0)
-		map->y_column = y_size;
-	line_read = (double *)malloc(sizeof(*line_read) * y_size);
+		x_size++;
+	if (map->x_column == 0)
+		map->x_column = x_size;
+	line_read = (double *)malloc(sizeof(*line_read) * x_size);
 	if (line_read == NULL)
 		p_error("Memory allocation failed\n");
 	index = -1;
@@ -61,26 +66,26 @@ static void	convert_line(t_map *map, char *line)
 		line_read[index] = (double)ft_atoi(split[index]);
 	free_char(split);
 	free(temp_line);
-	store_input(map, line_read, y_size);
+	store_input(map, line_read, x_size);
 }
 
 static void	read_file(t_map *map, int fd)
 {
 	char	*line;
-	size_t	x_size;
+	size_t	y_size;
 
 	line = get_next_line(fd);
 	if (line == NULL)
 		p_error("Error: File is empty\n");
-	x_size = 0;
+	y_size = 0;
 	while (line != NULL)
 	{
 		convert_line(map, line);
 		free(line);
 		line = get_next_line(fd);
-		x_size++;
+		y_size++;
 	}
-	map->x_row = x_size;
+	map->y_row = y_size;
 }
 
 void	process_input(t_map *map, char *file)

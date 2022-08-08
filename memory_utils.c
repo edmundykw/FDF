@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:34:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/06 19:50:15 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/08 16:04:45 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_vector(t_map *map)
 
 	temp = map->vector;
 	size = 0;
-	while (size++ < map->x_row * map->y_column)
+	while (size++ < map->x_column * map->y_row)
 	{
 		free(*temp);
 		temp++;

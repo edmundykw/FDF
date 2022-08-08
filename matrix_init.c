@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:44:42 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/06 18:25:12 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/06 23:43:13 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	identity_matrix(double *matrix[4], size_t dimension)
 		{
 			if (index == row)
 				matrix[index][row] = 1;
-			matrix[index][row] = 0;
+			else
+				matrix[index][row] = 0;
 		}
 	}
 }
