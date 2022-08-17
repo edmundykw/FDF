@@ -6,17 +6,17 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 20:40:34 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/08 20:45:38 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:49:02 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	abs(double num1, double num2)
+int	absolute(double num)
 {
 	int	diff;
 
-	diff = num2 - num1;
+	diff = num;
 	if (diff < 0)
 		diff *= -1;
 	return (diff);

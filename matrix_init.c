@@ -6,52 +6,16 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 18:44:42 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/06 23:43:13 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/17 20:55:44 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	allocate_matrix_memory(double *matrix[4], size_t dimension)
-{
-	size_t	index;
-	double	*temp;
-
-	index = -1;
-	while (++index < dimension)
-	{
-		temp = allocate_vector_memory(dimension);
-		if (temp == NULL)
-			p_error("Memory allocation failed\n");
-		matrix[index] = temp;
-	}
-}
-
-static void	identity_matrix(double *matrix[4], size_t dimension)
-{
-	size_t	index;
-	size_t	row;
-
-	index = -1;
-	allocate_matrix_memory(matrix, dimension);
-	while (++index < dimension)
-	{
-		row = -1;
-		while (++row < dimension)
-		{
-			if (index == row)
-				matrix[index][row] = 1;
-			else
-				matrix[index][row] = 0;
-		}
-	}
-}
-
 static void	init_matrix(t_map *map)
 {
 	map->matrices = (t_matrix *)malloc(sizeof(*map->matrices));
-	if (map->matrices == NULL)
-		p_error("Memory allocation failed\n");
+	check_mem(map->matrices);
 }
 
 void	init_matrices(t_map *map)

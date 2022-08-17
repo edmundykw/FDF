@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:34:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/08 16:04:45 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:12:54 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ double	*allocate_vector_memory(size_t dimension)
 	double	*vector;
 
 	vector = (double *)malloc(sizeof(*vector) * dimension);
-	if (vector == NULL)
-		p_error("Memory allocation failed\n");
+	check_mem(vector);
 	return (vector);
 }

@@ -6,100 +6,119 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 14:51:31 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/08 20:49:08 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:08:11 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *img, int x, int y)
 {
 	char	*dst;
+	int		pixels;
 
-	if (x <= 1440 && y <= 920)
+	pixels = x * y;
+	if (pixels <= WIND_WIDTH * WIND_HEIGHT
+		&& (x >= 0 && x <= WIND_WIDTH) && (y >= 0 && y <= WIND_HEIGHT))
 	{
 		dst = img->addr + (y * img->line_length
 				+ x *(img->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
+		*(unsigned int *)dst = 0x00FFFFFF;
 	}
 }
 
-void	plot_line_low(double x_y[4], double output[3], t_data *img)
+void	plot_line_low(t_coord *coord, t_data *img)
 {
-	int	x_start;
-	int	y_start;
 	int	yi;
 
-	x_start = x_y[x_1];
-	y_start = x_y[y_1];
 	yi = 1;
-	if (output[dy] < 0)
+	coord->dx = coord->x_y[x_2] - coord->x_y[x_1];
+	coord->dy = coord->x_y[y_2] - coord->x_y[y_1];
+	if (coord->dy < 0)
 	{
 		yi = -1;
-		output[dy] = -1 * output[dy];
+		coord->dy = -1 * coord->dy;
 	}
-	while (x_start < x_y[x_2])
+	coord->epsilon = (2 * coord->dy) - coord->dx;
+	while (coord->x_y[x_1] < coord->x_y[x_2])
 	{
-		my_mlx_pixel_put(img, x_start, y_start, 0x00FFFFFF);
-		if (output[epsilon] > 0)
+		my_mlx_pixel_put(img, coord->x_y[x_1], coord->x_y[y_1]);
+		if (coord->epsilon > 0)
 		{
-			y_start += yi;
-			output[epsilon] += (2 * (output[dy] - output[dx]));
+			coord->x_y[y_1] += yi;
+			coord->epsilon += (2 * (coord->dy - coord->dx));
 		}
 		else
-			output[epsilon] += (2 * output[dy]);
-		x_start++;
+			coord->epsilon += (2 * coord->dy);
+		coord->x_y[x_1]++;
 	}
 }
 
-void	plot_line_high(double x_y[4], double output[3], t_data *img)
+void	plot_line_high(t_coord *coord, t_data *img)
 {
-	int	x_start;
-	int	y_start;
 	int	xi;
 
-	x_start = x_y[x_1];
-	y_start = x_y[y_1];
 	xi = 1;
-	if (output[dx] < 0)
+	coord->dx = coord->x_y[x_2] - coord->x_y[x_1];
+	coord->dy = coord->x_y[y_2] - coord->x_y[y_1];
+	if (coord->dx < 0)
 	{
 		xi = -1;
-		output[dx] = -1 * output[dx];
+		coord->dx = -1 * coord->dx;
 	}
-	while (y_start < x_y[y_2])
+	coord->epsilon = (2 * coord->dx) - coord->dy;
+	while (coord->x_y[y_1] <= coord->x_y[y_2])
 	{
-		my_mlx_pixel_put(img, x_start, y_start, 0x00FFFFFF);
-		if (output[epsilon] > 0)
+		my_mlx_pixel_put(img, coord->x_y[x_1], coord->x_y[y_1]);
+		if (coord->epsilon > 0)
 		{
-			x_start += xi;
-			output[epsilon] += (2 * (output[dx] - output[dy]));
+			coord->x_y[x_1] += xi;
+			coord->epsilon += (2 * (coord->dx - coord->dy));
 		}
 		else
-			output[epsilon] += (2 * output[dx]);
-		y_start++;
+			coord->epsilon += (2 * coord->dx);
+		coord->x_y[y_1]++;
 	}
 }
 
-void	draw_line(int output[3], double x_y[4], t_data *img)
+t_coord	*get_coord(double *v1, double *v2)
 {
-	if (abs(x_y[y_2], x_y[y_1]) < abs(x_y[x_2], x_y[x_1]))
+	t_coord	*coord;
+
+	coord = (t_coord *)malloc(sizeof(*coord));
+	check_mem(coord);
+	coord->x_y[x_1] = v1[xi];
+	coord->x_y[y_1] = v1[yi];
+	coord->x_y[x_2] = v2[xi];
+	coord->x_y[y_2] = v2[yi];
+	return (coord);
+}
+
+void	draw_line(double *v1, double *v2, t_data *img)
+{
+	t_coord	*coord;
+
+	coord = get_coord(v1, v2);
+	if (absolute(coord->x_y[y_2] - coord->x_y[y_1])
+		< absolute(coord->x_y[x_2] - coord->x_y[x_1]))
 	{
-		if (x_y[x_1] > x_y[x_2])
+		if (coord->x_y[x_1] > coord->x_y[x_2])
 		{
-			swap(x_y);
-			plot_line_low(x_y, output, img);
+			swap(coord->x_y);
+			plot_line_low(coord, img);
 		}
 		else
-			plot_line_low(x_y, output, img);
+			plot_line_low(coord, img);
 	}
 	else
 	{
-		if (x_y[y_1] > x_y[y_2])
+		if (coord->x_y[y_1] > coord->x_y[y_2])
 		{
-			swap(x_y);
-			plot_line_high(x_y, output, img);
+			swap(coord->x_y);
+			plot_line_high(coord, img);
 		}
 		else
-			plot_line_high(x_y, output, img);
+			plot_line_high(coord, img);
 	}
+	free(coord);
 }

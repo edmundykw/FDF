@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 18:55:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/08 16:00:03 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:31:07 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 static void	allocate_map_memory(t_map *map, size_t map_size)
 {
 	map->vector = (double **)malloc(sizeof(*map->vector) * map_size);
-	if (map->vector == NULL)
-		p_error("Memory allocation failed\n");
+	check_mem(map->vector);
 }
 
 void	build_map(t_map *map)
@@ -47,10 +46,3 @@ void	build_map(t_map *map)
 		temp = temp->next;
 	}
 }
-
-/* 
-
-			printf("xi: %f yi: %f zi: %f wi: %f\n",
-				(map->vector[index][xi]), (map->vector[index][yi]),
-				(map->vector[index][zi]), (map->vector[index][wi]));
-*/

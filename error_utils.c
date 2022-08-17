@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:16:54 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/01 12:55:55 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:07:29 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,10 @@ int	check_file_status(char *file)
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
+}
+
+void	check_mem(void	*ptr)
+{
+	if (ptr == NULL)
+		p_error("Memory allocation failed\n");
 }

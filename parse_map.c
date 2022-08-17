@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:43 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/08 15:56:18 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/17 23:09:06 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@ static void	scale_coord(t_map *map)
 {
 	size_t	index;
 	double	**coord;
+	size_t	row;
 
 	index = 0;
+	row = 0;
 	coord = map->vector;
 	while (++index < map->x_column * map->y_row)
 	{
-		(coord[index][xi]) = (coord[index][xi]) + map->unit_vector_size;
-		(coord[index][yi]) = (coord[index][yi]) + map->unit_vector_size;
+		(coord[index][xi]) = (coord[index][xi]) * map->unit_vector_size;
+		if ((index + 1) % map->x_column == 0)
+			row = 1;
+		if (row)
+			(coord[index][yi]) = (coord[index][yi]) * map->unit_vector_size;
 		if (coord[index][zi] != 0)
-			(coord[index][zi]) = (coord[index][zi]) + map->unit_vector_size;
-		printf("Scaling: x: %f, y: %f, z: %f, w: %f\n", coord[index][xi],
-			coord[index][yi], coord[index][zi], coord[index][wi]);
+			(coord[index][zi]) = (coord[index][zi]) * map->unit_vector_size * 1.4;
 	}
-	printf("Scaling: x: %f, y: %f, z: %f, w: %f\n", coord[0][xi],
-		coord[0][yi], coord[0][zi], coord[0][wi]);
 }
 
 static void	store_input(t_map *map, double *line_read, size_t x_size)
@@ -59,8 +60,7 @@ static void	convert_line(t_map *map, char *line)
 	if (map->x_column == 0)
 		map->x_column = x_size;
 	line_read = (double *)malloc(sizeof(*line_read) * x_size);
-	if (line_read == NULL)
-		p_error("Memory allocation failed\n");
+	check_mem(line_read);
 	index = -1;
 	while (split[++index] != NULL)
 		line_read[index] = (double)ft_atoi(split[index]);
