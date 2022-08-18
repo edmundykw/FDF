@@ -6,7 +6,7 @@
 #    By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/25 17:12:22 by ekeen-wy          #+#    #+#              #
-#    Updated: 2022/08/18 19:29:37 by ekeen-wy         ###   ########.fr        #
+#    Updated: 2022/08/18 19:52:59 by ekeen-wy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ MLX := -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 DEPS := Includes/fdf.h
 
-LIBFT_PATH	= Sources/Libft
+LIBFT_PATH	= Libft
 LIBFT   	= $(LIBFT_PATH)/libft.a
 BRE_DIR 	= Sources/Bresenhams/
 MAIN		= Sources/Main/
