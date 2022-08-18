@@ -6,32 +6,41 @@
 #    By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/25 17:12:22 by ekeen-wy          #+#    #+#              #
-#    Updated: 2022/08/09 11:15:17 by ekeen-wy         ###   ########.fr        #
+#    Updated: 2022/08/18 18:53:24 by ekeen-wy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := fdf
 
-LIBFT_PATH = libft
-
-LIBFT = $(LIBFT_PATH)/libft.a
-
 CC := gcc
 
 CFLAGS := -Wall -Wextra -Werror -g -fsanitize=address
 
-DEPS := fdf.h
+MLX := -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
-SRC := main.c parse_map.c error_utils.c memory_utils.c bresenhams.c build_map.c \
-	   map_utils.c matrix_init.c matrix_transformation.c matrix_utils.c \
-	   drawing_utils.c general_utils.c
+DEPS := Includes/fdf.h
+
+LIBFT_PATH	= Sources/libft
+LIBFT   	= $(LIBFT_PATH)/libft.a
+BRE_DIR 	= Sources/Bresenhams/
+MAIN		= Sources/Main/
+MAT_DIR	 	= Sources/Matrix/
+MAP_DIR 	= Sources/Maps/
+UTL_DIR 	= Sources/Utils/
+
+SRC := $(addprefix $(MAIN), main.c) \
+	   $(addprefix $(BRE_DIR), bresenhams.c drawing_utils.c) \
+	   $(addprefix $(MAT_DIR), matrix_init.c matrix_transformation.c) \
+	   $(addprefix $(MAP_DIR), build_map.c parse_map.c) \
+	   $(addprefix $(UTL_DIR), error_utils.c event_handler.c general_utils.c) \
+	   $(addprefix $(UTL_DIR), memory_utils.c map_utils.c  matrix_utils.c)	    
 
 OBJ := $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT) 
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -o $(NAME)
 	@echo "compiled fdf!"
 
 %.o: %.c $(DEPS)
@@ -45,7 +54,7 @@ fclean: clean
 	@echo "removed fdf!"
 
 clean:
-	@$(MAKE) --no-print-directory fclean -C libft
+	@$(MAKE) --no-print-directory fclean -C $(LIBFT_PATH)
 	@rm -f $(OBJ)
 
 re: fclean all

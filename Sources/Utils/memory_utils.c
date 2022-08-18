@@ -6,11 +6,11 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:34:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 16:12:54 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:50 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
 
 void	free_char(char **str)
 {

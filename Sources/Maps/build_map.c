@@ -6,17 +6,22 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 18:55:50 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 16:31:07 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:11 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
 
 static void	allocate_map_memory(t_map *map, size_t map_size)
 {
 	map->vector = (double **)malloc(sizeof(*map->vector) * map_size);
 	check_mem(map->vector);
 }
+
+/* Creates each coordinate on the map with its resepective
+x, y, and z value. A double pointer data type is used to 
+store each coordinate for easy access.
+ */
 
 void	build_map(t_map *map)
 {

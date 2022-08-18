@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/07 00:01:02 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/07 00:02:27 by ekeen-wy         ###   ########.fr       */
+/*   Created: 2022/08/18 16:48:56 by ekeen-wy          #+#    #+#             */
+/*   Updated: 2022/08/18 17:26:30 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	printfmatrix(t_map *map)
-{
-	double	**temp;
-	size_t	count;
-	size_t	i;
+#include "../Includes/fdf.h"
 
-	count = -1;
-	temp = map->matrices->matrix_xz;
-	while (++count < map->vector_size)
-	{
-		i = 0;
-		printf("Col: %ld\n", count);
-		while (i < map->vector_size)
-		{
-			printf("Row: %ld\n", i);
-			printf("%f \n", temp[count][i]);
-			i++;
-		}
-	}
+/* Catches the keys pressed and proccess it accordingly. */
+
+int	close_wind(void)
+{
+	ft_putstr_fd("Closed window.\n", 1);
+	exit(EXIT_SUCCESS);
+	return (0);
 }
 
-printf("x: %f y: %f, z: %f\n", x_cor, y_cor, *num);
+int	ft_event_handler(int key)
+{
+	if (key == ESC)
+		close_wind();
+	return (0);
+}

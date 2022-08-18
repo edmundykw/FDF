@@ -6,18 +6,11 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 11:09:27 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 20:29:03 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:01 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-void	scale(double *matrix[4], double x, double y, double z)
-{
-	matrix[xi][xi] = matrix[xi][xi] * x;
-	matrix[yi][yi] = matrix[yi][yi] * y;
-	matrix[zi][zi] = matrix[zi][zi] * z;
-}
+#include "../Includes/fdf.h"
 
 void	rotate_z(double *matrix[4], double degree)
 {
@@ -41,6 +34,10 @@ void	rotate_x(double *matrix[4], double degree)
 	matrix[zi][zi] = cos(radian);
 }
 
+/* This is technically a shear in 4D. But to avoid using vector
+addition for translation in 3D, the translation in 3D is represented
+as a shear in 4D.
+ */
 void	translate(double *matrix[4], double x, double y, double z)
 {
 	matrix[wi][xi] = x;

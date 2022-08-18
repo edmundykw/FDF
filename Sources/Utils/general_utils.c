@@ -6,11 +6,13 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 20:40:34 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/09 19:49:02 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:34 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
+
+/* Returns absolute of an integer. */
 
 int	absolute(double num)
 {
@@ -21,6 +23,10 @@ int	absolute(double num)
 		diff *= -1;
 	return (diff);
 }
+
+/* Used in the drawing algo to swap the starting
+and ending points.
+ */
 
 void	swap(double x_y[4])
 {

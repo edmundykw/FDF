@@ -6,11 +6,13 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:03:43 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 23:09:06 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:19 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
+
+/* Scales each coordinate based on the distance between each coordinate. */
 
 static void	scale_coord(t_map *map)
 {
@@ -29,9 +31,16 @@ static void	scale_coord(t_map *map)
 		if (row)
 			(coord[index][yi]) = (coord[index][yi]) * map->unit_vector_size;
 		if (coord[index][zi] != 0)
-			(coord[index][zi]) = (coord[index][zi]) * map->unit_vector_size * 1.4;
+		{
+			(coord[index][zi]) = (coord[index][zi])
+				* map->unit_vector_size * 1.4;
+		}
 	}
 }
+
+/* Stores the converted string in each column in a linked list 
+for later retrieval and processing.
+ */
 
 static void	store_input(t_map *map, double *line_read, size_t x_size)
 {
@@ -42,6 +51,8 @@ static void	store_input(t_map *map, double *line_read, size_t x_size)
 	new = ft_lstnew(line_read);
 	ft_lstadd_back(&map->temp_map, new);
 }
+
+/* Convert each string in a row to an integer. */
 
 static void	convert_line(t_map *map, char *line)
 {
@@ -68,6 +79,8 @@ static void	convert_line(t_map *map, char *line)
 	free(temp_line);
 	store_input(map, line_read, x_size);
 }
+
+/* Reads each row in the file until the last row. */
 
 static void	read_file(t_map *map, int fd)
 {

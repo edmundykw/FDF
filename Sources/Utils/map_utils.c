@@ -6,17 +6,23 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 12:35:36 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 23:20:58 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:40 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
+
+/* Checks is the map as the right column size for each row. */
 
 void	is_valid_dimension(t_map *map, size_t y_size)
 {
 	if (map->x_column != y_size)
 		p_error("Error: Invalid map dimension\n");
 }
+
+/*  Determine the gap between each coordinates. More pixels to 
+render means smaller gaps between each coordinates.
+*/
 
 void	set_unit_vector(t_map *map)
 {

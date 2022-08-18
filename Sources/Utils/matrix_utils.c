@@ -6,16 +6,22 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 14:16:16 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 20:55:52 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:26:45 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
+
+/* Converts degree to radian for the math library. */
 
 double	degree_to_radian(double degree)
 {
 	return (degree * (M_PI / 180));
 }
+
+/* Multiplies the vector with the matrix specified. The result is kept
+in the transformed pointer.
+ */
 
 void	matrix_multiply(double *vector, double *matrix[4],
 		double *transformed, size_t dimension)
@@ -55,6 +61,8 @@ static void	allocate_matrix_memory(double *matrix[4], size_t dimension)
 		matrix[index] = temp;
 	}
 }
+
+/* Creates an identity matrix. */
 
 void	identity_matrix(double *matrix[4], size_t dimension)
 {

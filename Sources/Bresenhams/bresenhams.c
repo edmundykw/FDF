@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing_utils.c                                    :+:      :+:    :+:   */
+/*   bresenhams.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/07 14:51:31 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/17 16:08:11 by ekeen-wy         ###   ########.fr       */
+/*   Created: 2022/07/13 14:38:45 by ekeen-wy          #+#    #+#             */
+/*   Updated: 2022/08/18 17:25:36 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../Includes/fdf.h"
 
-void	my_mlx_pixel_put(t_data *img, int x, int y)
-{
-	char	*dst;
-	int		pixels;
-
-	pixels = x * y;
-	if (pixels <= WIND_WIDTH * WIND_HEIGHT
-		&& (x >= 0 && x <= WIND_WIDTH) && (y >= 0 && y <= WIND_HEIGHT))
-	{
-		dst = img->addr + (y * img->line_length
-				+ x *(img->bits_per_pixel / 8));
-		*(unsigned int *)dst = 0x00FFFFFF;
-	}
-}
+/* 
+The following algorithm is adapted into C from the following Wikipedia page:
+https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm#
+*/
 
 void	plot_line_low(t_coord *coord, t_data *img)
 {
@@ -81,19 +71,6 @@ void	plot_line_high(t_coord *coord, t_data *img)
 	}
 }
 
-t_coord	*get_coord(double *v1, double *v2)
-{
-	t_coord	*coord;
-
-	coord = (t_coord *)malloc(sizeof(*coord));
-	check_mem(coord);
-	coord->x_y[x_1] = v1[xi];
-	coord->x_y[y_1] = v1[yi];
-	coord->x_y[x_2] = v2[xi];
-	coord->x_y[y_2] = v2[yi];
-	return (coord);
-}
-
 void	draw_line(double *v1, double *v2, t_data *img)
 {
 	t_coord	*coord;
@@ -121,4 +98,23 @@ void	draw_line(double *v1, double *v2, t_data *img)
 			plot_line_high(coord, img);
 	}
 	free(coord);
+}
+
+void	bresenhams(t_map *map, t_data *img)
+{
+	size_t	index;
+	size_t	map_size;
+
+	map_size = map->x_column * map->y_row;
+	trans_coord(map->vector, map->matrices->matrix_xz, map->vector_size,
+		map_size);
+	index = -1;
+	while (++index < map_size - 1)
+	{
+		if ((index + 1) % map->x_column != 0)
+			draw_line(map->vector[index], map->vector[index + 1], img);
+		if (index < map_size - map->x_column)
+			draw_line(map->vector[index],
+				map->vector[index + map->x_column], img);
+	}
 }
