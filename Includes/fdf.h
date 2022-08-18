@@ -6,7 +6,7 @@
 /*   By: ekeen-wy <ekeen-wy@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 17:16:40 by ekeen-wy          #+#    #+#             */
-/*   Updated: 2022/08/18 17:44:14 by ekeen-wy         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:05:27 by ekeen-wy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FDF_H
 # include <mlx.h>
 # include <stdio.h>
-# include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../Sources/libft/libft.h"
